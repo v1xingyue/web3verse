@@ -1,7 +1,7 @@
 {
   "name": "web3note",
   "displayName": "Web3note",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "write note with every page on web3.",
   "author": "Plasmo Corp. <foss@plasmo.com>",
   "scripts": {
@@ -33,6 +33,10 @@
   "manifest": {
     "host_permissions": [
       "<all_urls>"
+    ],
+    "permissions":[ 
+      "activeTab",
+      "scripting"
     ]
   }
 }
