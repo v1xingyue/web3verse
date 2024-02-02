@@ -2,7 +2,6 @@ import cssText from "data-text:~style.css";
 import type { PlasmoCSConfig } from "plasmo";
 
 import App from "~components/app";
-import Web3Modal from "~components/web3modal";
 
 export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"],
@@ -24,7 +23,6 @@ const PlasmoOverlay = () => {
         zIndex: 5000,
       }}
     >
-      <Web3Modal />
       <App />
     </div>
   );
