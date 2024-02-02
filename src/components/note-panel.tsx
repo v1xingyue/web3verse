@@ -30,7 +30,7 @@ export const Galileo = defineChain({
   },
 });
 
-const baseContract = "0xaed04cc264017d912a62a86f1e0d717c4f851784";
+const baseContract = "0xa4F872385A06B6C6d41c22b3e3720977B67cc792";
 const networkId = 3334;
 const gateway = "w3link.io";
 const noteContract = {
@@ -90,6 +90,7 @@ const noteContract = {
 } as const;
 
 const NotePanel = () => {
+  const [txHash, setTxHash] = useState<string>("");
   const [network, setNetwork] = useState<string>("");
   const [address, setAddress] = useState<Address>();
   const [balance, setBalance] = useState<string>("");
@@ -113,7 +114,7 @@ const NotePanel = () => {
       updateLoading(false);
       return;
     }
-    const url = `https://${baseContract}.${networkId}.${gateway}/getNote/${noteAddress}`;
+    const url = `https://${baseContract}.${networkId}.${gateway}/note/string!${noteAddress}`;
     console.log(` load note from ${url} `);
     document.dispatchEvent(
       new CustomEvent("Web3NoteLoadEvent", {
@@ -137,9 +138,9 @@ const NotePanel = () => {
       document.addEventListener("Web3NoteLoadedEvent", (e: any) => {
         console.log("loaded done -> ", e.detail);
         updateLoading(false);
-        const { status, msg } = e.detail;
+        const { status, text } = e.detail;
         if (status == 200) {
-          updateMsg(msg);
+          updateMsg(text);
         } else {
           updateMsg("No note found");
         }
@@ -168,7 +169,8 @@ const NotePanel = () => {
       account: address,
     });
     const hash = await walletClient.writeContract(request);
-    console.log(hash);
+    console.log(hash.toString());
+    setTxHash(hash.toString());
   };
 
   return loading ? (
@@ -206,6 +208,7 @@ const NotePanel = () => {
         <button className="plasmo-btn plasmo-btn-info" onClick={saveToWeb3}>
           Save Note To Web3
         </button>
+        <p>{txHash == "" ? "" : "TxHash : " + txHash}</p>
       </div>
     </div>
   );
