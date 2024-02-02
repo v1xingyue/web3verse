@@ -30,6 +30,14 @@ export const Galileo = defineChain({
   },
 });
 
+interface stopPropagationEvent {
+  stopPropagation: () => void;
+}
+
+const stopPropagation = (e: stopPropagationEvent) => {
+  e.stopPropagation();
+};
+
 const baseContract = "0xa4F872385A06B6C6d41c22b3e3720977B67cc792";
 const networkId = 3334;
 const gateway = "w3link.io";
@@ -88,6 +96,15 @@ const noteContract = {
     },
   ],
 } as const;
+
+const NoteLink = ({ noteAddress }: { noteAddress: string }) => {
+  const url = `https://${baseContract}.${networkId}.${gateway}/note/string!${noteAddress}`;
+  return (
+    <a target="_blank" className="plasmo-link plasmo-link-primary" href={url}>
+      {noteAddress}
+    </a>
+  );
+};
 
 const NotePanel = () => {
   const [txHash, setTxHash] = useState<string>("");
@@ -191,14 +208,19 @@ const NotePanel = () => {
           </span>{" "}
         </p>
         <p>
-          NoteAddress : <span className="plasmo-font-bold">{noteAddress}</span>{" "}
+          Note Hash :{" "}
+          <span className="plasmo-font-bold">
+            <NoteLink noteAddress={noteAddress} />
+          </span>{" "}
         </p>
       </div>
       <textarea
         value={msg}
-        onChange={(e) => {
+        onKeyUp={stopPropagation}
+        onKeyDown={stopPropagation}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
           updateMsg(e.target.value);
-          e.preventDefault();
+          stopPropagation(e);
         }}
         autoFocus={true}
         className="plasmo-mt-4 plasmo-w-full plasmo-h-96 plasmo-p-2 plasmo-text-sm plasmo-text-gray-700 plasmo-border plasmo-border-gray-300 plasmo-rounded-md "
@@ -208,7 +230,19 @@ const NotePanel = () => {
         <button className="plasmo-btn plasmo-btn-info" onClick={saveToWeb3}>
           Save Note To Web3
         </button>
-        <p>{txHash == "" ? "" : "TxHash : " + txHash}</p>
+        <p className="plasmo-mt-2">
+          {txHash == "" ? (
+            ""
+          ) : (
+            <a
+              className="plasmo-font-bold plasmo-link plasmo-link-primary plasmo-text-sm plasmo-underline "
+              href={`https://explorer.galileo.web3q.io/tx/${txHash}`}
+              target="_blank"
+            >
+              Transaction : {txHash}
+            </a>
+          )}
+        </p>
       </div>
     </div>
   );

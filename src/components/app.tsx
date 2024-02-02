@@ -13,7 +13,7 @@ const App = () => {
 
   return display ? (
     <QueryClientProvider client={queryClient}>
-      <div className="plasmo-card plasmo-bg-base-200 plasmo-shadow-xl plasmo-w-1/2 plasmo-fixed plasmo-top-28 plasmo-right-3">
+      <div className="plasmo-card plasmo-bg-base-200 plasmo-shadow-xl plasmo-w-1/2 plasmo-h-5/6 plasmo-fixed plasmo-top-5 plasmo-right-5">
         <div className="plasmo-card-body">
           <div className="plasmo-card-actions plasmo-justify-end">
             <button

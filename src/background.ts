@@ -10,6 +10,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       const text = await response.text();
       const payload = { status: response.status, text };
       console.log("load response -> ", payload);
+      sendResponse(payload);
     };
     loadUrl(url);
   }
