@@ -4,11 +4,8 @@ import {
   createPublicClient,
   createWalletClient,
   custom,
-  http,
   defineChain,
   formatEther,
-  getContract,
-  type Account,
   type Address,
 } from "viem";
 
