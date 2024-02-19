@@ -9,16 +9,23 @@ jobs:
 
   build-binary:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
 
     steps:
       - name: checkout code
         uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 20
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: latest
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+            - args: [--global, gulp, prettier, typescript]
 
       - run: |
           pnpm install 
