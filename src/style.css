@@ -13,3 +13,19 @@
 	vertical-align: middle;
 	margin-top: -0.1em;
 }
+
+@keyframes colorAndScale {
+	0% {
+		transform: scale(1); /* 初始缩放比例 */
+	}
+	50% {
+		transform: scale(1.25); /* 中间稍微放大 */
+	}
+	100% {
+		transform: scale(1); /* 结束时缩放比例回到初始 */
+	}
+}
+  
+svg.animation {
+	animation: colorAndScale 3s infinite alternate;
+}

@@ -55,21 +55,12 @@ const NotePanel = () => {
     };
 
     loadNote();
-
     console.log("noteAddress", noteAddress);
   }, [noteAddress]);
 
   useEffect(() => {
-    if (!address) return;
-    const x = sha256(Buffer.from(location.href + address).toString("hex"));
-    setNoteAddress(x.toString());
-  }, [address]);
-
-  useEffect(() => {
-    if (address) return;
     const loadInfo = async () => {
       console.log("ethreum ----------> ", window.ethereum);
-
       const address = await walletClient.requestAddresses();
       setAddress(address[0]);
       const blockNumber = await client.getBlockNumber();
@@ -80,7 +71,12 @@ const NotePanel = () => {
       console.log("balance", balance);
       setBalance(formatEther(balance));
     };
-    loadInfo();
+    if (!address) {
+      loadInfo();
+    } else {
+      const x = sha256(Buffer.from(location.href + address).toString("hex"));
+      setNoteAddress(x.toString());
+    }
   }, [address]);
 
   const saveToWeb3 = async () => {

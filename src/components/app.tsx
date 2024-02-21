@@ -52,15 +52,16 @@ const App = () => {
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
-          className="humbleicons hi-folder"
+          className="humbleicons hi-document animation"
         >
-          <path
+          <g
             xmlns="http://www.w3.org/2000/svg"
-            stroke="currentColor"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M3 18V6a2 2 0 012-2h4.539a2 2 0 011.562.75L12.2 6.126a1 1 0 00.78.375H20a1 1 0 011 1V18a1 1 0 01-1 1H4a1 1 0 01-1-1z"
-          />
+            stroke-linejoin="round"
+            stroke-width="2"
+          >
+            <path d="M5 20V4a1 1 0 011-1h6.172a2 2 0 011.414.586l4.828 4.828A2 2 0 0119 9.828V20a1 1 0 01-1 1H6a1 1 0 01-1-1z" />
+            <path d="M12 3v6a1 1 0 001 1h6" />
+          </g>
         </svg>
       </button>
     </div>
