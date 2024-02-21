@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
+import { createPublicClient, custom } from "viem";
 import { baseContract, gateway, networkId } from "~config";
+import { Galileo } from "./web3";
 
 export const NoteLink = ({ noteAddress }: { noteAddress: string }) => {
   const url = `https://${baseContract}.${networkId}.${gateway}/note/string!${noteAddress}`;
@@ -12,9 +15,7 @@ export const NoteLink = ({ noteAddress }: { noteAddress: string }) => {
 export const TransactionLink = ({ txHash }) => {
   return (
     <p className="plasmo-mt-2">
-      {txHash == "" ? (
-        ""
-      ) : (
+      {txHash == "" ? null : (
         <a
           className="plasmo-font-bold plasmo-link plasmo-link-primary plasmo-text-sm plasmo-underline "
           href={`https://explorer.galileo.web3q.io/tx/${txHash}`}

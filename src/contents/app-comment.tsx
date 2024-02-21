@@ -1,18 +1,17 @@
 import cssText from "data-text:~style.css";
 import type { PlasmoCSConfig, PlasmoGetInlineAnchor } from "plasmo";
 import { useEffect, useState } from "react";
-
 import sha256 from "crypto-js/sha256";
 import { baseContract, gateway, networkId } from "~config";
+import { Galileo, noteContract } from "~components/web3";
+import { getSystemTheme } from "~theme";
+import { TransactionLink } from "~components/links";
 import {
   createPublicClient,
   createWalletClient,
   custom,
   type Address,
 } from "viem";
-import { Galileo, noteContract } from "~components/web3";
-import { getSystemTheme } from "~theme";
-import { TransactionLink } from "~components/links";
 
 export const config: PlasmoCSConfig = {
   matches: [
@@ -65,10 +64,21 @@ const Web3Comment = ({ app, idx, creator }) => {
   );
 };
 
-export const getInlineAnchor: PlasmoGetInlineAnchor = async () =>
-  document.querySelector("div.Box-sc-g0xbh4-0.ytOJl") ||
-  document.querySelector("div.Box-sc-g0xbh4-0.iJmJly") ||
-  document.querySelector("div#super-web3-comment");
+const anchorList = [
+  "div.Box-sc-g0xbh4-0.ytOJl",
+  "div.Box-sc-g0xbh4-0.iJmJly",
+  "div#super-web3-comment",
+];
+
+export const getInlineAnchor: PlasmoGetInlineAnchor = async () => {
+  for (let anchor of anchorList) {
+    const e = document.querySelector(anchor);
+    if (e) {
+      return e;
+    }
+  }
+  return null;
+};
 
 export const getStyle = () => {
   const style = document.createElement("style");
@@ -111,7 +121,7 @@ const PlasmoOverlay = () => {
 
   useEffect(() => {
     if (app != "") {
-      console.log("load  app info --------");
+      console.log("load app info --------");
       const url = `https://${baseContract}.${networkId}.${gateway}/appMappings/string!${app}?returns=(string,uint256,address)`;
       console.log(url);
       document.dispatchEvent(
