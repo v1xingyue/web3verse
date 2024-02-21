@@ -14,6 +14,16 @@ import { Galileo, noteContract } from "~components/web3";
 import { getSystemTheme } from "~theme";
 import { TransactionLink } from "~components/links";
 
+export const config: PlasmoCSConfig = {
+  matches: [
+    "https://github.com/CreatorsDAO/web3-protocol-co-learn/*",
+    "https://github.com/v1xingyue/web3note/*",
+    "https://creatorsdao.github.io/*",
+  ],
+  world: "MAIN",
+  run_at: "document_end",
+};
+
 const Web3Comment = ({ app, idx, creator }) => {
   const [txt, setTxt] = useState("loading");
   const [url, setUrl] = useState("loading");
@@ -55,15 +65,10 @@ const Web3Comment = ({ app, idx, creator }) => {
   );
 };
 
-export const config: PlasmoCSConfig = {
-  matches: ["https://github.com/CreatorsDAO/web3-protocol-co-learn/*"],
-  world: "MAIN",
-  run_at: "document_end",
-};
-
 export const getInlineAnchor: PlasmoGetInlineAnchor = async () =>
   document.querySelector("div.Box-sc-g0xbh4-0.ytOJl") ||
-  document.querySelector("div.Box-sc-g0xbh4-0.iJmJly");
+  document.querySelector("div.Box-sc-g0xbh4-0.iJmJly") ||
+  document.querySelector("div#super-web3-comment");
 
 export const getStyle = () => {
   const style = document.createElement("style");
