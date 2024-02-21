@@ -1,4 +1,4 @@
-console.log("Web3Note extension loaded");
+console.log("Web3Verse extension loaded");
 
 import type { PlasmoCSConfig } from "plasmo";
 
@@ -7,7 +7,7 @@ export const config: PlasmoCSConfig = {
   run_at: "document_start",
 };
 
-document.addEventListener("Web3NoteLoadEvent", async (event: any) => {
+document.addEventListener("Web3VerseLoadEvent", async (event: any) => {
   console.log("receive event ", event);
   const { url, done } = event.detail;
   chrome.runtime

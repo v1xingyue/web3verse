@@ -1,8 +1,8 @@
 {
-  "name": "web3note",
-  "displayName": "Web3note",
+  "name": "web3verse",
+  "displayName": "Web3verse",
   "version": "0.0.10",
-  "description": "write note with every page on web3.",
+  "description": "Your Own Web3 Universe!",
   "author": "v1xingyue<qixingyue@gmail.com>",
   "scripts": {
     "dev": "plasmo dev",

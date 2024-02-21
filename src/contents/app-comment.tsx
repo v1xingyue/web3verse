@@ -16,7 +16,7 @@ import {
 export const config: PlasmoCSConfig = {
   matches: [
     "https://github.com/CreatorsDAO/web3-protocol-co-learn/*",
-    "https://github.com/v1xingyue/web3note/*",
+    "https://github.com/v1xingyue/web3verse/*",
     "https://creatorsdao.github.io/*",
   ],
   world: "MAIN",

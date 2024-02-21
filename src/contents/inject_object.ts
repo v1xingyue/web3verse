@@ -26,7 +26,7 @@ window.Web3CommentGlobal = {
 
       document.addEventListener(uniqueId, handler);
       document.dispatchEvent(
-        new CustomEvent("Web3NoteLoadEvent", {
+        new CustomEvent("Web3VerseLoadEvent", {
           detail: {
             url,
             done: uniqueId,
