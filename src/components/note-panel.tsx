@@ -45,16 +45,17 @@ const NotePanel = () => {
       updateLoading(false);
       return;
     }
-    const url = `https://${baseContract}.${networkId}.${gateway}/note/string!${noteAddress}`;
-    console.log(` load note from ${url} `);
-    document.dispatchEvent(
-      new CustomEvent("Web3NoteLoadEvent", {
-        detail: {
-          url,
-          done: "Web3NoteLoadedEvent",
-        },
-      })
-    );
+
+    const loadNote = async () => {
+      const url = `https://${baseContract}.${networkId}.${gateway}/note/string!${noteAddress}`;
+      console.log(` load note from ${url} `);
+      const note = await window.Web3CommentGlobal.loadUrl(url);
+      updateLoading(false);
+      updateMsg(note);
+    };
+
+    loadNote();
+
     console.log("noteAddress", noteAddress);
   }, [noteAddress]);
 
@@ -67,17 +68,6 @@ const NotePanel = () => {
   useEffect(() => {
     if (address) return;
     const loadInfo = async () => {
-      document.addEventListener("Web3NoteLoadedEvent", (e: any) => {
-        console.log("loaded done -> ", e.detail);
-        updateLoading(false);
-        const { status, text } = e.detail;
-        if (status == 200) {
-          updateMsg(text);
-        } else {
-          updateMsg("No note found");
-        }
-      });
-
       console.log("ethreum ----------> ", window.ethereum);
 
       const address = await walletClient.requestAddresses();

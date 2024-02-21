@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import NotePanel from "./note-panel";
 
-const basePos = `plasmo-fixed plasmo-top-48 plasmo-right-3`;
+const basePos = `plasmo-fixed plasmo-bottom-16	plasmo-right-12`;
 
 const App = () => {
   const [display, updateDisplay] = useState(false);
@@ -57,8 +57,8 @@ const App = () => {
           <path
             xmlns="http://www.w3.org/2000/svg"
             stroke="currentColor"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="M3 18V6a2 2 0 012-2h4.539a2 2 0 011.562.75L12.2 6.126a1 1 0 00.78.375H20a1 1 0 011 1V18a1 1 0 01-1 1H4a1 1 0 01-1-1z"
           />
         </svg>

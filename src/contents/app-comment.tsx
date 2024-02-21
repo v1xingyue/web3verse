@@ -28,25 +28,12 @@ const Web3Comment = ({ app, idx, creator }) => {
   const [url, setUrl] = useState("loading");
   useEffect(() => {
     if (app != "" && idx > 0) {
-      document.addEventListener("Web3CommentDone" + app + idx, (e: any) => {
-        const { status, text } = e.detail;
-        console.log({ status, text });
-        if (status == 200) {
-          setTxt(text);
-        }
-      });
-
       const loadComment = async () => {
         const url = `https://${baseContract}.${networkId}.${gateway}/appNote/string!${app}/${idx}/${creator}`;
         setUrl(url);
-        document.dispatchEvent(
-          new CustomEvent("Web3NoteLoadEvent", {
-            detail: {
-              url,
-              done: "Web3CommentDone" + app + idx,
-            },
-          })
-        );
+
+        const comment = await window.Web3CommentGlobal.loadUrl(url);
+        setTxt(comment);
       };
       loadComment();
     }
@@ -121,25 +108,11 @@ const PlasmoOverlay = () => {
 
   useEffect(() => {
     if (app != "") {
-      console.log("load app info --------");
-      const url = `https://${baseContract}.${networkId}.${gateway}/appMappings/string!${app}?returns=(string,uint256,address)`;
-      console.log(url);
-      document.dispatchEvent(
-        new CustomEvent("Web3NoteLoadEvent", {
-          detail: {
-            url,
-            done: "Web3NoteAppInfoLoaded",
-          },
-        })
-      );
-    }
-  }, [app]);
-
-  useEffect(() => {
-    document.addEventListener("Web3NoteAppInfoLoaded", (e: any) => {
-      console.log("app info : ", e);
-      const { status, text } = e.detail;
-      if (status == 200) {
+      const loadAppInfo = async () => {
+        console.log("load app info --------");
+        const url = `https://${baseContract}.${networkId}.${gateway}/appMappings/string!${app}?returns=(string,uint256,address)`;
+        console.log(url);
+        const text = await window.Web3CommentGlobal.loadUrl(url);
         const info = JSON.parse(text);
         if (info[0] == "") {
           setCreateVisible(true);
@@ -148,9 +121,11 @@ const PlasmoOverlay = () => {
           setCreator(info[2]);
         }
         setInfo(info);
-      }
-    });
-  });
+      };
+
+      loadAppInfo();
+    }
+  }, [app]);
 
   const initNoteApp = async () => {
     if (app != "") {
